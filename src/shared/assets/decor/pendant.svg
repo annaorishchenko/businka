@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 480" role="img" aria-label="декор-висюлька" preserveAspectRatio="xMidYMid meet">
+    <g stroke="#D58D98" stroke-width="1.5" fill="none">
+        <line x1="40" y1="0" x2="40" y2="120" />
+    </g>
+    <g fill="#D58D98">
+        <circle cx="40" cy="120" r="14" />
+        <circle cx="40" cy="120" r="6" fill="#FEFBEA" />
+    </g>
+    <g stroke="#9B8E5A" stroke-width="1" fill="none">
+        <line x1="40" y1="134" x2="40" y2="180" />
+    </g>
+    <g fill="#9B8E5A">
+        <circle cx="40" cy="190" r="10" />
+    </g>
+    <g stroke="#DC919C" stroke-width="1.2" fill="none">
+        <line x1="40" y1="200" x2="40" y2="260" />
+    </g>
+    <g fill="#DC919C">
+        <path d="M40 260 q-18 16 0 36 q18 -16 0 -36 z" opacity="0.85" />
+        <circle cx="40" cy="304" r="6" />
+    </g>
+    <g stroke="#9B8E5A" stroke-width="1" fill="none">
+        <line x1="40" y1="310" x2="40" y2="360" />
+    </g>
+    <g fill="#FDE6DB" stroke="#9B8E5A" stroke-width="0.8">
+        <circle cx="40" cy="372" r="12" />
+    </g>
+    <g stroke="#D58D98" stroke-width="1" fill="none">
+        <line x1="40" y1="384" x2="40" y2="430" />
+    </g>
+    <g fill="#D58D98">
+        <circle cx="40" cy="438" r="8" />
+    </g>
+</svg>

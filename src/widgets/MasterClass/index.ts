@@ -1,0 +1,1 @@
+export { MasterClass } from "./MasterClass";

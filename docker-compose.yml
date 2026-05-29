@@ -1,0 +1,54 @@
+# =============================================================================
+# docker-compose.yml — production-стек для статического сайта.
+# Два сервиса: web (nginx со статикой) и certbot (авторенью SSL).
+# Переменные DOMAIN и EMAIL читаются из .env (см. .env.example).
+# =============================================================================
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: businka-web:latest
+    container_name: businka-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      # Сертификаты Let's Encrypt — read-only для nginx.
+      - ./certbot/conf:/etc/letsencrypt:ro
+      # Webroot для ACME-челленджа — read-only для nginx, rw для certbot.
+      - ./certbot/www:/var/www/certbot:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: businka-certbot
+    restart: unless-stopped
+    depends_on:
+      - web
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    environment:
+      DOMAIN: ${DOMAIN}
+      EMAIL: ${EMAIL}
+    # Каждые 12 часов пытаемся обновить сертификаты.
+    # Сертификат фактически обновляется только если ему осталось <30 дней —
+    # certbot сам это решает. Так что цикл безопасен.
+    entrypoint: >
+      /bin/sh -c "
+        trap exit TERM;
+        while :; do
+          certbot renew --webroot -w /var/www/certbot --quiet;
+          sleep 12h & wait $${!};
+        done
+      "
