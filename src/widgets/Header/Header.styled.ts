@@ -17,6 +17,16 @@ export const HeaderInner = styled.div`
     gap: ${({ theme }) => theme.spacing.xl};
 `;
 
+export const HeaderRight = styled.div`
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.lg};
+
+    ${({ theme }) => theme.media.mobileWide} {
+        gap: ${({ theme }) => theme.spacing.sm};
+    }
+`;
+
 export const LogoLink = styled(NavLink)`
     display: inline-flex;
     align-items: center;
@@ -62,10 +72,6 @@ export const NavItem = styled(NavLink)`
     }
 
     &:hover {
-        color: ${({ theme }) => theme.colors.primary};
-    }
-
-    &.active {
         color: ${({ theme }) => theme.colors.primary};
     }
 `;
@@ -122,8 +128,4 @@ export const MobileNavItem = styled(NavLink)`
     text-decoration: none;
     padding: ${({ theme }) => theme.spacing.md} 0;
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
-    &.active {
-        color: ${({ theme }) => theme.colors.primary};
-    }
 `;

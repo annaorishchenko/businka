@@ -9,9 +9,10 @@ export const ROUTES = {
 
 export type RouteKey = keyof typeof ROUTES;
 
+// labels are derived via i18n in components (t('nav.news') etc.)
 export const NAV_ITEMS = [
-    { to: ROUTES.NEWS, label: "Новости" },
-    { to: ROUTES.CATALOG, label: "Каталог" },
-    { to: ROUTES.ABOUT, label: "О нас" },
-    { to: ROUTES.REVIEWS, label: "Отзывы" },
+    { to: ROUTES.NEWS, labelKey: "nav.news" },
+    { to: ROUTES.CATALOG, labelKey: "nav.catalog" },
+    { to: ROUTES.ABOUT, labelKey: "nav.about" },
+    { to: ROUTES.REVIEWS, labelKey: "nav.reviews" },
 ] as const;

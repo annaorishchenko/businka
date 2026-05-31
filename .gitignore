@@ -40,3 +40,5 @@ tmp
 # certbot (created on prod)
 certbot/conf
 certbot/www
+
+.server.credentials

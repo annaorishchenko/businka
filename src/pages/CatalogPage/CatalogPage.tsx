@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Card } from "@/shared/components/Card";
 import { SectionTitle } from "@/shared/components/SectionTitle";
-import { CATEGORY_LABELS, PRODUCTS, type Product } from "@/shared/constants/products";
+import { PRODUCTS, type Product } from "@/shared/constants/products";
+import { useLocale } from "@/shared/i18n/useLocale";
 
 const Section = styled.section`
     padding-block: ${({ theme }) => theme.spacing["3xl"]};
@@ -51,18 +53,20 @@ const Grid = styled.div`
     }
 `;
 
-const CATEGORIES: Array<{ value: "all" | Product["category"]; label: string }> = [
-    { value: "all", label: "Всё" },
-    { value: "earrings", label: CATEGORY_LABELS.earrings },
-    { value: "rings", label: CATEGORY_LABELS.rings },
-    { value: "bracelets", label: CATEGORY_LABELS.bracelets },
-    { value: "necklaces", label: CATEGORY_LABELS.necklaces },
-    { value: "trinkets", label: CATEGORY_LABELS.trinkets },
-    { value: "figurines", label: CATEGORY_LABELS.figurines },
+const CATEGORIES: Array<"all" | Product["category"]> = [
+    "all",
+    "earrings",
+    "rings",
+    "bracelets",
+    "necklaces",
+    "trinkets",
+    "figurines",
 ];
 
 const CatalogPage = () => {
     const [filter, setFilter] = useState<"all" | Product["category"]>("all");
+    const { t } = useTranslation();
+    const { locale } = useLocale();
 
     const filtered = useMemo(
         () => (filter === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === filter)),
@@ -72,20 +76,20 @@ const CatalogPage = () => {
     return (
         <Section>
             <Container>
-                <SectionTitle variant="serif" align="center" eyebrow="Каталог" as="h1">
-                    Украшения, созданные вручную
+                <SectionTitle variant="serif" align="center" eyebrow={t("catalog.eyebrow")} as="h1">
+                    {t("catalog.title")}
                 </SectionTitle>
 
-                <Filters role="tablist" aria-label="Категории каталога">
-                    {CATEGORIES.map((c) => (
+                <Filters role="tablist" aria-label={t("catalog.filters")}>
+                    {CATEGORIES.map((value) => (
                         <Chip
-                            key={c.value}
+                            key={value}
                             type="button"
-                            $active={filter === c.value}
-                            onClick={() => setFilter(c.value)}
-                            aria-pressed={filter === c.value}
+                            $active={filter === value}
+                            onClick={() => setFilter(value)}
+                            aria-pressed={filter === value}
                         >
-                            {c.label}
+                            {value === "all" ? t("catalog.all") : t(`category.${value}`)}
                         </Chip>
                     ))}
                 </Filters>
@@ -95,8 +99,8 @@ const CatalogPage = () => {
                         <Card
                             key={p.id}
                             image={p.image}
-                            title={p.title}
-                            subtitle={p.description ?? CATEGORY_LABELS[p.category]}
+                            title={p.title[locale]}
+                            subtitle={p.description?.[locale] ?? t(`category.${p.category}`)}
                         />
                     ))}
                 </Grid>

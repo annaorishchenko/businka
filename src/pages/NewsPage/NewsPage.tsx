@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { SectionTitle } from "@/shared/components/SectionTitle";
 import { NEWS, formatNewsDate } from "@/shared/constants/news";
+import { useLocale } from "@/shared/i18n/useLocale";
 
 const Section = styled.section`
     padding-block: ${({ theme }) => theme.spacing["3xl"]};
@@ -67,27 +69,33 @@ const Excerpt = styled.p`
     line-height: ${({ theme }) => theme.typography.lineHeight.loose};
 `;
 
-const NewsPage = () => (
-    <Section>
-        <Container>
-            <SectionTitle variant="script" align="center" eyebrow="Новости" as="h1">
-                О чём мы пишем
-            </SectionTitle>
+const NewsPage = () => {
+    const { t } = useTranslation();
+    const { locale } = useLocale();
+    return (
+        <Section>
+            <Container>
+                <SectionTitle variant="script" align="center" eyebrow={t("news.eyebrow")} as="h1">
+                    {t("news.title")}
+                </SectionTitle>
 
-            <List>
-                {NEWS.map((item) => (
-                    <Article key={item.id}>
-                        <Img src={item.image} alt={item.title} loading="lazy" />
-                        <Body>
-                            <Date_ dateTime={item.date}>{formatNewsDate(item.date)}</Date_>
-                            <Title>{item.title}</Title>
-                            <Excerpt>{item.excerpt}</Excerpt>
-                        </Body>
-                    </Article>
-                ))}
-            </List>
-        </Container>
-    </Section>
-);
+                <List>
+                    {NEWS.map((item) => (
+                        <Article key={item.id}>
+                            <Img src={item.image} alt={item.title[locale]} loading="lazy" />
+                            <Body>
+                                <Date_ dateTime={item.date}>
+                                    {formatNewsDate(item.date, locale)}
+                                </Date_>
+                                <Title>{item.title[locale]}</Title>
+                                <Excerpt>{item.excerpt[locale]}</Excerpt>
+                            </Body>
+                        </Article>
+                    ))}
+                </List>
+            </Container>
+        </Section>
+    );
+};
 
 export default NewsPage;

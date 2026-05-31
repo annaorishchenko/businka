@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { SectionTitle } from "@/shared/components/SectionTitle";
 
@@ -55,32 +56,26 @@ const ItemTitle = styled.h3`
     font-weight: ${({ theme }) => theme.typography.weight.semibold};
 `;
 
-const FEATURES = [
-    "Универсальный стиль",
-    "Ручная работа",
-    "Качественные материалы",
-];
-
-export const Features = () => (
-    <Section>
-        <Container>
-            <Grid>
-                <div>
-                    <SectionTitle variant="script">Почему мы?</SectionTitle>
-                    <Intro>
-                        «Бусинка» — небольшой бренд, каждый товар которого создаётся
-                        вручную. Мы создаём украшения из бисера и бусин, чтобы помочь тебе
-                        выразить себя через детали.
-                    </Intro>
-                </div>
-                <List>
-                    {FEATURES.map((f) => (
-                        <Item key={f}>
-                            <ItemTitle>{f}</ItemTitle>
-                        </Item>
-                    ))}
-                </List>
-            </Grid>
-        </Container>
-    </Section>
-);
+export const Features = () => {
+    const { t } = useTranslation();
+    const items = ["1", "2", "3"] as const;
+    return (
+        <Section>
+            <Container>
+                <Grid>
+                    <div>
+                        <SectionTitle variant="script">{t("features.title")}</SectionTitle>
+                        <Intro>{t("features.intro")}</Intro>
+                    </div>
+                    <List>
+                        {items.map((id) => (
+                            <Item key={id}>
+                                <ItemTitle>{t(`features.items.${id}`)}</ItemTitle>
+                            </Item>
+                        ))}
+                    </List>
+                </Grid>
+            </Container>
+        </Section>
+    );
+};

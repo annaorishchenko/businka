@@ -1,28 +1,31 @@
 import { describe, it, expect } from "vitest";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "@/shared/i18n";
 import { renderWithProviders } from "@/shared/test/renderWithProviders";
 import { Header } from "./Header";
 import { NAV_ITEMS } from "@/shared/constants/routes";
+
+const label = (key: string) => i18n.t(key);
 
 describe("Header", () => {
     it("renders all 4 nav items in the main navigation", () => {
         renderWithProviders(<Header />);
 
-        const nav = screen.getByRole("navigation", { name: "Основная навигация" });
+        const nav = screen.getByRole("navigation", { name: label("nav.ariaLabel") });
 
-        NAV_ITEMS.forEach(({ label }) => {
-            expect(within(nav).getByRole("link", { name: label })).toBeInTheDocument();
+        NAV_ITEMS.forEach(({ labelKey }) => {
+            expect(within(nav).getByRole("link", { name: label(labelKey) })).toBeInTheDocument();
         });
     });
 
     it("each nav item points to its route", () => {
         renderWithProviders(<Header />);
 
-        const nav = screen.getByRole("navigation", { name: "Основная навигация" });
+        const nav = screen.getByRole("navigation", { name: label("nav.ariaLabel") });
 
-        NAV_ITEMS.forEach(({ label, to }) => {
-            expect(within(nav).getByRole("link", { name: label })).toHaveAttribute(
+        NAV_ITEMS.forEach(({ labelKey, to }) => {
+            expect(within(nav).getByRole("link", { name: label(labelKey) })).toHaveAttribute(
                 "href",
                 to,
             );
@@ -32,7 +35,7 @@ describe("Header", () => {
     it("renders the logo as a link to '/'", () => {
         renderWithProviders(<Header />);
 
-        const logo = screen.getAllByRole("link", { name: "Бусинка — на главную" })[0];
+        const logo = screen.getAllByRole("link", { name: label("brand.logoAlt") })[0];
 
         expect(logo).toBeInTheDocument();
         expect(logo).toHaveAttribute("href", "/");
@@ -44,7 +47,7 @@ describe("Header", () => {
         // The burger button has `display: none` until the mobile breakpoint
         // (styled-components emits CSS, which jsdom treats as hidden), so
         // query by accessible label instead of by role.
-        expect(screen.getByLabelText("Открыть меню")).toBeInTheDocument();
+        expect(screen.getByLabelText(label("nav.open"))).toBeInTheDocument();
     });
 
     it("opens mobile menu when the burger is clicked", async () => {
@@ -54,10 +57,10 @@ describe("Header", () => {
         const mobileMenu = container.querySelector("[aria-hidden]");
         expect(mobileMenu).toHaveAttribute("aria-hidden", "true");
 
-        await user.click(screen.getByLabelText("Открыть меню"));
+        await user.click(screen.getByLabelText(label("nav.open")));
 
         expect(mobileMenu).toHaveAttribute("aria-hidden", "false");
-        expect(screen.getByLabelText("Закрыть меню")).toBeInTheDocument();
+        expect(screen.getByLabelText(label("nav.close"))).toBeInTheDocument();
     });
 
     it("closes mobile menu when the close button is clicked", async () => {
@@ -66,10 +69,10 @@ describe("Header", () => {
 
         const mobileMenu = container.querySelector("[aria-hidden]");
 
-        await user.click(screen.getByLabelText("Открыть меню"));
+        await user.click(screen.getByLabelText(label("nav.open")));
         expect(mobileMenu).toHaveAttribute("aria-hidden", "false");
 
-        await user.click(screen.getByLabelText("Закрыть меню"));
+        await user.click(screen.getByLabelText(label("nav.close")));
         expect(mobileMenu).toHaveAttribute("aria-hidden", "true");
     });
 
@@ -79,13 +82,13 @@ describe("Header", () => {
 
         const mobileMenu = container.querySelector("[aria-hidden]") as HTMLElement;
 
-        await user.click(screen.getByLabelText("Открыть меню"));
+        await user.click(screen.getByLabelText(label("nav.open")));
         expect(mobileMenu).toHaveAttribute("aria-hidden", "false");
 
         // Two links named "Каталог" exist (desktop nav + mobile nav). Pick the
         // one inside the mobile menu.
         const catalogLink = within(mobileMenu).getByRole("link", {
-            name: "Каталог",
+            name: label("nav.catalog"),
         });
         await user.click(catalogLink);
 

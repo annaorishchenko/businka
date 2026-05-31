@@ -1,0 +1,111 @@
+{
+    "brand": {
+        "name": "Businka",
+        "tagline": "beaded jewelry",
+        "logoAlt": "Businka — go to home page"
+    },
+    "nav": {
+        "news": "News",
+        "catalog": "Catalog",
+        "about": "About",
+        "reviews": "Reviews",
+        "open": "Open menu",
+        "close": "Close menu",
+        "ariaLabel": "Main navigation"
+    },
+    "lang": {
+        "switchTo": "Переключить на русский",
+        "ru": "RU",
+        "en": "EN"
+    },
+    "hero": {
+        "headline": "Jewelry\ncreated for you",
+        "tagline": "Handmade beaded jewelry. Czech and Japanese seed beads, meticulous work and soul in every single bead.",
+        "ctaCatalog": "Go to catalog",
+        "ctaContact": "Get in touch",
+        "photoAlt": "Close-up of a beaded jewelry piece"
+    },
+    "catalogPreview": {
+        "eyebrow": "Catalog",
+        "title": "Surprise",
+        "lead": "Earrings, rings, bracelets and cute keychains. Every bead is handcrafted from Czech or Japanese seed beads.",
+        "viewAll": "Full catalog",
+        "goToCatalog": "Go to catalog"
+    },
+    "popular": {
+        "eyebrow": "Popular",
+        "title": "Top picks",
+        "lead": "Jewelry that completes your look and brings a festive feel to your day."
+    },
+    "features": {
+        "title": "Why us?",
+        "intro": "Businka is a small brand where every item is made by hand. We craft jewelry from beads to help you express yourself through small details.",
+        "items": {
+            "1": "Versatile style",
+            "2": "Handmade",
+            "3": "Quality materials"
+        }
+    },
+    "masterClass": {
+        "eyebrow": "Workshop",
+        "title": "Create beauty with your own hands",
+        "lead": "Join our workshop on weaving beaded jewelry. We will share techniques and materials, and help you make your very first piece.",
+        "ctaPhone": "Book by phone",
+        "ctaEmail": "Write us an email",
+        "emailSubject": "Workshop booking",
+        "photoAlt": "Beaded jewelry workshop"
+    },
+    "catalog": {
+        "eyebrow": "Catalog",
+        "title": "Jewelry made by hand",
+        "filters": "Catalog categories",
+        "all": "All"
+    },
+    "category": {
+        "earrings": "Earrings",
+        "rings": "Rings",
+        "bracelets": "Bracelets",
+        "trinkets": "Keychains",
+        "necklaces": "Necklaces",
+        "figurines": "Figurines"
+    },
+    "news": {
+        "eyebrow": "News",
+        "title": "What we write about"
+    },
+    "about": {
+        "eyebrow": "About",
+        "title": "A small brand with a big soul",
+        "story": [
+            "Businka is a small brand of handmade jewelry. We are based in Rostov-on-Don, and we craft every item by hand from Czech or Japanese seed beads.",
+            "Every necklace, earring or bracelet is dozens and hundreds of tiny beads, a careful color combination and meticulous work. That is why no two of our pieces are exactly alike.",
+            "We make jewelry that helps highlight your individuality and lift your mood. Wear it with joy — and if you need a custom piece, drop us a message on Telegram or give us a call."
+        ],
+        "photoAlt": "Close-up of a beaded jewelry piece"
+    },
+    "reviews": {
+        "eyebrow": "Reviews",
+        "title": "What our clients say",
+        "rating": "Rating: {{rating}} out of 5"
+    },
+    "notFound": {
+        "code": "404",
+        "title": "Businka got lost",
+        "lead": "This page does not exist — the link may have expired or contain a typo. Let’s head back to the jewelry.",
+        "cta": "Back to home"
+    },
+    "footer": {
+        "title": "Contacts",
+        "address": "Address",
+        "contact": "Reach us",
+        "docs": "Documents",
+        "addressValue": "Rostov-on-Don, Maxim Gorky St., 75",
+        "workingHours": "9:00 AM — 8:00 PM",
+        "telegram": "Telegram",
+        "instagram": "Instagram*",
+        "policyData": "Personal data processing policy",
+        "policyConfidentiality": "Privacy policy",
+        "metaDisclaimer": "* — Instagram is owned by Meta, which is recognized as an extremist organization in the Russian Federation; its activity is prohibited on the territory of the country."
+    },
+    "loader": "Loading the jewelry…"
+}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Button } from "@/shared/components/Button";
 import { IMAGES } from "@/shared/assets/images";
@@ -51,6 +52,7 @@ const Headline = styled.h1`
     font-size: ${({ theme }) => theme.typography.size.hero};
     color: ${({ theme }) => theme.colors.textPrimary};
     line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+    white-space: pre-line;
 `;
 
 const Actions = styled.div`
@@ -77,32 +79,28 @@ const HeroImage = styled.div`
     }
 `;
 
-export const Hero = () => (
-    <Section>
-        <Container>
-            <Grid>
-                <Text>
-                    <Brand>Бусинка</Brand>
-                    <Headline>
-                        Украшения,
-                        <br />
-                        созданные для тебя
-                    </Headline>
-                    <Tagline>
-                        Любые украшения из бисера ручной работы. Чешский и японский бисер,
-                        кропотливая работа и душа в каждой бусине.
-                    </Tagline>
-                    <Actions>
-                        <Button to={ROUTES.CATALOG}>Перейти в каталог</Button>
-                        <Button variant="outline" href="#contacts">
-                            Связаться
-                        </Button>
-                    </Actions>
-                </Text>
-                <HeroImage>
-                    <img src={IMAGES.hero} alt="Украшение из бисера крупным планом" />
-                </HeroImage>
-            </Grid>
-        </Container>
-    </Section>
-);
+export const Hero = () => {
+    const { t } = useTranslation();
+    return (
+        <Section>
+            <Container>
+                <Grid>
+                    <Text>
+                        <Brand>{t("brand.name")}</Brand>
+                        <Headline>{t("hero.headline")}</Headline>
+                        <Tagline>{t("hero.tagline")}</Tagline>
+                        <Actions>
+                            <Button to={ROUTES.CATALOG}>{t("hero.ctaCatalog")}</Button>
+                            <Button variant="outline" href="#contacts">
+                                {t("hero.ctaContact")}
+                            </Button>
+                        </Actions>
+                    </Text>
+                    <HeroImage>
+                        <img src={IMAGES.hero} alt={t("hero.photoAlt")} />
+                    </HeroImage>
+                </Grid>
+            </Container>
+        </Section>
+    );
+};

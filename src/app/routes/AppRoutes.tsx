@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Layout } from "@/widgets/Layout";
 import { ROUTES } from "@/shared/constants/routes";
 
@@ -20,7 +21,10 @@ const Loader = styled.div`
     color: ${({ theme }) => theme.colors.accent};
 `;
 
-const Fallback = () => <Loader>Загружаем украшения…</Loader>;
+const Fallback = () => {
+    const { t } = useTranslation();
+    return <Loader>{t("loader")}</Loader>;
+};
 
 export const AppRoutes = () => (
     <Routes>

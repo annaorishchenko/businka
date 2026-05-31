@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { SectionTitle } from "@/shared/components/SectionTitle";
 import { REVIEWS, type Review } from "@/shared/constants/reviews";
 import { formatNewsDate } from "@/shared/constants/news";
+import { useLocale } from "@/shared/i18n/useLocale";
 
 const Section = styled.section`
     padding-block: ${({ theme }) => theme.spacing["3xl"]};
@@ -75,30 +77,36 @@ const Text = styled.p`
 
 const renderStars = (rating: Review["rating"]) => "★".repeat(rating) + "☆".repeat(5 - rating);
 
-const ReviewsPage = () => (
-    <Section>
-        <Container>
-            <SectionTitle variant="script" align="center" eyebrow="Отзывы" as="h1">
-                Что говорят клиенты
-            </SectionTitle>
+const ReviewsPage = () => {
+    const { t } = useTranslation();
+    const { locale } = useLocale();
+    return (
+        <Section>
+            <Container>
+                <SectionTitle variant="script" align="center" eyebrow={t("reviews.eyebrow")} as="h1">
+                    {t("reviews.title")}
+                </SectionTitle>
 
-            <Grid>
-                {REVIEWS.map((r) => (
-                    <Item key={r.id}>
-                        <Head>
-                            <Author>
-                                <Name>{r.name}</Name>
-                                {r.city && <City>{r.city}</City>}
-                            </Author>
-                            <Date_ dateTime={r.date}>{formatNewsDate(r.date)}</Date_>
-                        </Head>
-                        <Stars aria-label={`Оценка: ${r.rating} из 5`}>{renderStars(r.rating)}</Stars>
-                        <Text>{r.text}</Text>
-                    </Item>
-                ))}
-            </Grid>
-        </Container>
-    </Section>
-);
+                <Grid>
+                    {REVIEWS.map((r) => (
+                        <Item key={r.id}>
+                            <Head>
+                                <Author>
+                                    <Name>{r.name[locale]}</Name>
+                                    {r.city && <City>{r.city[locale]}</City>}
+                                </Author>
+                                <Date_ dateTime={r.date}>{formatNewsDate(r.date, locale)}</Date_>
+                            </Head>
+                            <Stars aria-label={t("reviews.rating", { rating: r.rating })}>
+                                {renderStars(r.rating)}
+                            </Stars>
+                            <Text>{r.text[locale]}</Text>
+                        </Item>
+                    ))}
+                </Grid>
+            </Container>
+        </Section>
+    );
+};
 
 export default ReviewsPage;

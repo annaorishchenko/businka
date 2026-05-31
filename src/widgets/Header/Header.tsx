@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Icon } from "@/shared/components/Icon";
 import { NAV_ITEMS, ROUTES } from "@/shared/constants/routes";
 import { DECOR } from "@/shared/assets/decor";
+import { LanguageSwitcher } from "@/widgets/LanguageSwitcher";
 import {
     HeaderRoot,
     HeaderInner,
@@ -15,11 +17,13 @@ import {
     MobileMenuHeader,
     MobileNavList,
     MobileNavItem,
+    HeaderRight,
 } from "./Header.styled";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         setIsOpen(false);
@@ -36,26 +40,30 @@ export const Header = () => {
         <HeaderRoot>
             <Container>
                 <HeaderInner>
-                    <LogoLink to={ROUTES.HOME} aria-label="Бусинка — на главную">
-                        <img src={DECOR.logo} alt="Бусинка" />
+                    <LogoLink to={ROUTES.HOME} aria-label={t("brand.logoAlt")}>
+                        <img src={DECOR.logo} alt={t("brand.name")} />
                     </LogoLink>
 
-                    <Nav aria-label="Основная навигация">
-                        {NAV_ITEMS.map(({ to, label }) => (
-                            <NavItem key={to} to={to}>
-                                {label}
-                            </NavItem>
-                        ))}
-                    </Nav>
+                    <HeaderRight>
+                        <Nav aria-label={t("nav.ariaLabel")}>
+                            {NAV_ITEMS.map(({ to, labelKey }) => (
+                                <NavItem key={to} to={to}>
+                                    {t(labelKey)}
+                                </NavItem>
+                            ))}
+                        </Nav>
 
-                    <BurgerButton
-                        type="button"
-                        aria-label="Открыть меню"
-                        aria-expanded={isOpen}
-                        onClick={() => setIsOpen(true)}
-                    >
-                        <Icon name="menu" size={28} />
-                    </BurgerButton>
+                        <LanguageSwitcher />
+
+                        <BurgerButton
+                            type="button"
+                            aria-label={t("nav.open")}
+                            aria-expanded={isOpen}
+                            onClick={() => setIsOpen(true)}
+                        >
+                            <Icon name="menu" size={28} />
+                        </BurgerButton>
+                    </HeaderRight>
                 </HeaderInner>
             </Container>
 
@@ -63,11 +71,11 @@ export const Header = () => {
                 <Container>
                     <MobileMenuHeader>
                         <LogoLink to={ROUTES.HOME}>
-                            <img src={DECOR.logo} alt="Бусинка" />
+                            <img src={DECOR.logo} alt={t("brand.name")} />
                         </LogoLink>
                         <BurgerButton
                             type="button"
-                            aria-label="Закрыть меню"
+                            aria-label={t("nav.close")}
                             onClick={() => setIsOpen(false)}
                             style={{ display: "inline-flex" }}
                         >
@@ -76,12 +84,14 @@ export const Header = () => {
                     </MobileMenuHeader>
 
                     <MobileNavList>
-                        {NAV_ITEMS.map(({ to, label }) => (
+                        {NAV_ITEMS.map(({ to, labelKey }) => (
                             <MobileNavItem key={to} to={to}>
-                                {label}
+                                {t(labelKey)}
                             </MobileNavItem>
                         ))}
                     </MobileNavList>
+
+                    <LanguageSwitcher style={{ marginTop: 24 }} />
                 </Container>
             </MobileMenu>
         </HeaderRoot>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Button } from "@/shared/components/Button";
 import { IMAGES } from "@/shared/assets/images";
@@ -71,32 +72,35 @@ const Actions = styled.div`
     flex-wrap: wrap;
 `;
 
-export const MasterClass = () => (
-    <Section id="master-class">
-        <Container>
-            <Grid>
-                <Img>
-                    <img src={IMAGES.masterClass.large} alt="Мастер-класс по украшениям из бисера" />
-                </Img>
-                <Body>
-                    <Eyebrow>Мастер-класс</Eyebrow>
-                    <Title>Создаём красоту своими руками</Title>
-                    <Lead>
-                        Приглашаем на мастер-класс по плетению украшений из бисера.
-                        Расскажем о техниках, поделимся материалами и поможем сделать своё
-                        первое украшение.
-                    </Lead>
-                    <Actions>
-                        <Button href={`tel:${CONTACTS.phone}`}>Записаться по телефону</Button>
-                        <Button
-                            variant="outline"
-                            href={`mailto:${CONTACTS.email}?subject=Запись на мастер-класс`}
-                        >
-                            Написать на email
-                        </Button>
-                    </Actions>
-                </Body>
-            </Grid>
-        </Container>
-    </Section>
-);
+export const MasterClass = () => {
+    const { t } = useTranslation();
+    return (
+        <Section id="master-class">
+            <Container>
+                <Grid>
+                    <Img>
+                        <img src={IMAGES.masterClass.large} alt={t("masterClass.photoAlt")} />
+                    </Img>
+                    <Body>
+                        <Eyebrow>{t("masterClass.eyebrow")}</Eyebrow>
+                        <Title>{t("masterClass.title")}</Title>
+                        <Lead>{t("masterClass.lead")}</Lead>
+                        <Actions>
+                            <Button href={`tel:${CONTACTS.phone}`}>
+                                {t("masterClass.ctaPhone")}
+                            </Button>
+                            <Button
+                                variant="outline"
+                                href={`mailto:${CONTACTS.email}?subject=${encodeURIComponent(
+                                    t("masterClass.emailSubject"),
+                                )}`}
+                            >
+                                {t("masterClass.ctaEmail")}
+                            </Button>
+                        </Actions>
+                    </Body>
+                </Grid>
+            </Container>
+        </Section>
+    );
+};

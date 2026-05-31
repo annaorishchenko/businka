@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Button } from "@/shared/components/Button";
 import { ROUTES } from "@/shared/constants/routes";
@@ -34,18 +35,18 @@ const Lead = styled.p`
     line-height: ${({ theme }) => theme.typography.lineHeight.loose};
 `;
 
-const NotFoundPage = () => (
-    <Section>
-        <Container>
-            <Code>404</Code>
-            <Title>Бусинка потерялась</Title>
-            <Lead>
-                Такой страницы нет — возможно, ссылка устарела или вы ввели адрес с опечаткой.
-                Давайте вернёмся к украшениям.
-            </Lead>
-            <Button to={ROUTES.HOME}>На главную</Button>
-        </Container>
-    </Section>
-);
+const NotFoundPage = () => {
+    const { t } = useTranslation();
+    return (
+        <Section>
+            <Container>
+                <Code>{t("notFound.code")}</Code>
+                <Title>{t("notFound.title")}</Title>
+                <Lead>{t("notFound.lead")}</Lead>
+                <Button to={ROUTES.HOME}>{t("notFound.cta")}</Button>
+            </Container>
+        </Section>
+    );
+};
 
 export default NotFoundPage;

@@ -1,113 +1,128 @@
 import { IMAGES } from "@/shared/assets/images";
+import type { Locale } from "@/shared/i18n";
+
+type LocalizedString = Record<Locale, string>;
 
 export type Product = {
     id: string;
-    title: string;
+    title: LocalizedString;
     category: "earrings" | "rings" | "bracelets" | "trinkets" | "necklaces" | "figurines";
     image: string;
-    description?: string;
+    description?: LocalizedString;
 };
 
 export const PRODUCTS: Product[] = [
     {
         id: "earrings-classic",
-        title: "Серьги «Кольца»",
+        title: { ru: "Серьги «Кольца»", en: "‘Hoops’ earrings" },
         category: "earrings",
         image: IMAGES.catalog.earrings,
-        description: "Классические серьги-кольца с плетением из чешского бисера.",
+        description: {
+            ru: "Классические серьги-кольца с плетением из чешского бисера.",
+            en: "Classic hoop earrings woven from Czech seed beads.",
+        },
     },
     {
         id: "necklace-blue",
-        title: "Колье «Незабудка»",
+        title: { ru: "Колье «Незабудка»", en: "‘Forget-me-not’ necklace" },
         category: "necklaces",
         image: IMAGES.catalog.necklaceBlue,
-        description: "Воздушное колье в голубых тонах.",
+        description: { ru: "Воздушное колье в голубых тонах.", en: "An airy necklace in blue shades." },
     },
     {
         id: "bracelet-hand",
-        title: "Браслет «Тепло»",
+        title: { ru: "Браслет «Тепло»", en: "‘Warmth’ bracelet" },
         category: "bracelets",
         image: IMAGES.catalog.braceletHand,
-        description: "Лёгкий браслет на руку, плотное плетение.",
+        description: {
+            ru: "Лёгкий браслет на руку, плотное плетение.",
+            en: "A light bracelet with dense weaving.",
+        },
     },
     {
         id: "ring-handmade",
-        title: "Кольцо «Цветок»",
+        title: { ru: "Кольцо «Цветок»", en: "‘Flower’ ring" },
         category: "rings",
         image: IMAGES.catalog.ring,
-        description: "Кольцо ручной работы с цветочным мотивом.",
+        description: {
+            ru: "Кольцо ручной работы с цветочным мотивом.",
+            en: "A handmade ring with a floral motif.",
+        },
     },
     {
         id: "necklace-flower",
-        title: "Колье «Розовый сад»",
+        title: { ru: "Колье «Розовый сад»", en: "‘Pink Garden’ necklace" },
         category: "necklaces",
         image: IMAGES.catalog.necklaceFlower,
-        description: "Колье с объёмным цветком, на нежной леске.",
+        description: {
+            ru: "Колье с объёмным цветком, на нежной леске.",
+            en: "A necklace with a 3D flower on a delicate cord.",
+        },
     },
     {
         id: "branches",
-        title: "Серьги «Веточки»",
+        title: { ru: "Серьги «Веточки»", en: "‘Branches’ earrings" },
         category: "earrings",
         image: IMAGES.catalog.branches,
-        description: "Растительные мотивы в зелёном бисере.",
+        description: {
+            ru: "Растительные мотивы в зелёном бисере.",
+            en: "Botanical motifs in green seed beads.",
+        },
     },
     {
         id: "bracelet-pink",
-        title: "Браслет «Рассвет»",
+        title: { ru: "Браслет «Рассвет»", en: "‘Dawn’ bracelet" },
         category: "bracelets",
         image: IMAGES.catalog.braceletPink,
-        description: "Розовый браслет с нежным переливом.",
+        description: {
+            ru: "Розовый браслет с нежным переливом.",
+            en: "A pink bracelet with a delicate shimmer.",
+        },
     },
     {
         id: "trinket-eye",
-        title: "Брелок «Глазик»",
+        title: { ru: "Брелок «Глазик»", en: "‘Evil Eye’ keychain" },
         category: "trinkets",
         image: IMAGES.catalog.eye,
-        description: "Защитный амулет от сглаза.",
+        description: {
+            ru: "Защитный амулет от сглаза.",
+            en: "A protective charm against the evil eye.",
+        },
     },
     {
         id: "trinket-lemur",
-        title: "Брелок «Лемур»",
+        title: { ru: "Брелок «Лемур»", en: "‘Lemur’ keychain" },
         category: "trinkets",
         image: IMAGES.catalog.lemur,
     },
     {
         id: "trinket-penguin",
-        title: "Брелок «Пингвинчик»",
+        title: { ru: "Брелок «Пингвинчик»", en: "‘Penguin’ keychain" },
         category: "trinkets",
         image: IMAGES.catalog.penguin,
     },
     {
         id: "figurine-bee",
-        title: "Фигурка «Пчёлка»",
+        title: { ru: "Фигурка «Пчёлка»", en: "‘Bee’ figurine" },
         category: "figurines",
         image: IMAGES.figurines.bee,
     },
     {
         id: "figurine-parrot",
-        title: "Фигурка «Попугай»",
+        title: { ru: "Фигурка «Попугай»", en: "‘Parrot’ figurine" },
         category: "figurines",
         image: IMAGES.figurines.parrot,
     },
     {
         id: "figurine-shark",
-        title: "Фигурка «Акула»",
+        title: { ru: "Фигурка «Акула»", en: "‘Shark’ figurine" },
         category: "figurines",
         image: IMAGES.figurines.shark,
     },
     {
         id: "figurine-skat",
-        title: "Фигурка «Скат»",
+        title: { ru: "Фигурка «Скат»", en: "‘Stingray’ figurine" },
         category: "figurines",
         image: IMAGES.figurines.ray,
     },
 ];
-
-export const CATEGORY_LABELS: Record<Product["category"], string> = {
-    earrings: "Серьги",
-    rings: "Кольца",
-    bracelets: "Браслеты",
-    trinkets: "Брелоки",
-    necklaces: "Колье",
-    figurines: "Фигурки",
-};

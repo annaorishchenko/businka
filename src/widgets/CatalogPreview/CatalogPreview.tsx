@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/components/Container";
 import { Card } from "@/shared/components/Card";
 import { Button } from "@/shared/components/Button";
 import { SectionTitle } from "@/shared/components/SectionTitle";
 import { ROUTES } from "@/shared/constants/routes";
 import { PRODUCTS } from "@/shared/constants/products";
+import { useLocale } from "@/shared/i18n/useLocale";
 
 const Section = styled.section`
     padding-block: ${({ theme }) => theme.spacing["3xl"]};
@@ -51,6 +53,8 @@ const Footer = styled.div`
 `;
 
 export const CatalogPreview = () => {
+    const { t } = useTranslation();
+    const { locale } = useLocale();
     const preview = PRODUCTS.slice(0, 8);
 
     return (
@@ -58,25 +62,27 @@ export const CatalogPreview = () => {
             <Container>
                 <Top>
                     <div>
-                        <SectionTitle variant="script" eyebrow="Каталог">
-                            Удивляй
+                        <SectionTitle variant="script" eyebrow={t("catalogPreview.eyebrow")}>
+                            {t("catalogPreview.title")}
                         </SectionTitle>
-                        <Lead>
-                            Серьги, кольца, браслеты и милые брелоки. Каждая бусина —
-                            ручная работа из чешского или японского бисера.
-                        </Lead>
+                        <Lead>{t("catalogPreview.lead")}</Lead>
                     </div>
                     <Button to={ROUTES.CATALOG} variant="outline">
-                        Весь каталог
+                        {t("catalogPreview.viewAll")}
                     </Button>
                 </Top>
                 <Grid>
                     {preview.map((p) => (
-                        <Card key={p.id} image={p.image} title={p.title} subtitle={p.description} />
+                        <Card
+                            key={p.id}
+                            image={p.image}
+                            title={p.title[locale]}
+                            subtitle={p.description?.[locale]}
+                        />
                     ))}
                 </Grid>
                 <Footer>
-                    <Button to={ROUTES.CATALOG}>Перейти в каталог</Button>
+                    <Button to={ROUTES.CATALOG}>{t("catalogPreview.goToCatalog")}</Button>
                 </Footer>
             </Container>
         </Section>
